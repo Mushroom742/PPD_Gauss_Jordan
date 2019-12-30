@@ -88,9 +88,18 @@ void elimin_gauss_jordan(int taille,double** mat_A,double* vect_b){
 				for(j=k+1;j<taille;j++){
 					mat_A[i][j] = mat_A[i][j]-(mat_A[k][j]/mat_A[k][k])*mat_A[i][k];
 				}
-				vect_b[i] = vect_b[i]-(mat_A[i][k]/mat_A[k][k]);
 			}
+			tmp = vect_b[k];
+			vect_b[i] = vect_b[i]-(mat_A[i][k]/mat_A[k][k])*vect_b[k];
+			vect_b[k] = tmp;
 		}
 	}
 }
 					
+void resol_systeme(int taille,double** mat_A, double* vect_b){
+	int i;
+	
+	for(i=0;i<taille;i++){
+		vect_b[i] = vect_b[i]/mat_A[i][i];
+	}
+}

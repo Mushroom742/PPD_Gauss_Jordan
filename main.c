@@ -19,7 +19,9 @@ int main(void){
 	affiche_vect_b(taille,vect_b);
 	
 	elimin_gauss_jordan(taille,mat_A,vect_b);
-	affiche_mat_A(taille,mat_A);
+	
+	resol_systeme(taille,mat_A,vect_b);
+	printf("Solution : \n");
 	affiche_vect_b(taille,vect_b);
 	
 	free(vect_b);

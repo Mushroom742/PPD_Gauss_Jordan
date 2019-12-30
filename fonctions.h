@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <omp.h>
 
 double** init_mat_A(int taille);//pour initialiser la matrice A par l'utilisateur
 double** init_mat_A_alea(int taille); //initialisation de la matrice A aléatoirement
@@ -13,5 +14,7 @@ double* init_vect_b_alea(int taille); //initialisation du vecteur b aléatoireme
 void affiche_vect_b(int taille,double* vect_b); //affichage du vecteur b
 void elimin_gauss_jordan(int taille,double** mat_A,double* vect_b); //diagonalisation de la matrice
 void resol_systeme(int taille,double** mat_A, double* vect_b); //résoud le système linéaire
+void elimin_gauss_jordan_parallel(int taille,double** mat_A,double* vect_b, int nb_thread); //diagonalisation de la matrice version parallèle
+void resol_systeme_parallel(int taille,double** mat_A, double* vect_b, int nb_thread); //résoud le système linéaire version parallèle
 
 #endif

@@ -20,6 +20,28 @@ double** init_mat_A(int taille){
 	return mat_A;
 }
 
+double** init_mat_A_alea(int taille){
+	double** mat_A = NULL;
+	int i,j;
+	
+	mat_A = malloc(taille*sizeof(double*));
+	for(i=0;i<taille;i++){
+		mat_A[i]=malloc(taille*sizeof(double));
+		
+		for(j=0;j<taille;j++){
+			if((j>0 && j==i-1) || (j<taille && j==i+1) || j==i){
+				mat_A[i][j] = rand()%10;
+			}
+			else {
+				mat_A[i][j] = 0;
+			}
+		}
+	}
+	
+	return mat_A;
+	
+}
+
 void affiche_mat_A(int taille,double** mat_A){
 	int i,j;
 	printf("Matrice A : \n");
@@ -46,6 +68,19 @@ double* init_vect_b(int taille){
 	
 	return vect_b;
 	
+}
+
+double* init_vect_b_alea(int taille){
+	double* vect_b = NULL;
+	int i;
+	
+	vect_b = malloc(taille*sizeof(double));
+
+	for(i=0;i<taille;i++){
+		vect_b[i] = rand()%10;
+	}
+	
+	return vect_b;
 }
 
 void affiche_vect_b(int taille,double* vect_b){

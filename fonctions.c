@@ -30,7 +30,7 @@ double** init_mat_A_alea(int taille){
 
 		for(j=0;j<taille;j++){
 			if((j>0 && j==i-1) || (j<taille && j==i+1) || j==i){
-				mat_A[i][j] = rand()%10;
+				mat_A[i][j] = rand()%100;
 			}
 			else {
 				mat_A[i][j] = 0;
@@ -77,7 +77,7 @@ double* init_vect_b_alea(int taille){
 	vect_b = malloc(taille*sizeof(double));
 
 	for(i=0;i<taille;i++){
-		vect_b[i] = rand()%10;
+		vect_b[i] = rand()%100;
 	}
 
 	return vect_b;

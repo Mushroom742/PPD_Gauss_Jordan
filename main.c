@@ -7,6 +7,7 @@ int main(void){
 	int taille,i,choix,nb_thread;
 	double** mat_A = NULL;
 	double* vect_b = NULL;
+	clock_t t_start,t_end;
 
 	srand(time(NULL));
 
@@ -29,11 +30,17 @@ int main(void){
 	}while((choix!=1) && (choix!=2));
 
 	if(choix==1){
+		t_start = clock();
 		elimin_gauss_jordan(taille,mat_A,vect_b);
 
 		resol_systeme(taille,mat_A,vect_b);
+		
+		t_end = clock();
+		
 		printf("Solution : \n");
 		affiche_vect_b(taille,vect_b);
+		
+		printf("Temps d'exécution : %f secondes \n",(float)(t_end-t_start)/CLOCKS_PER_SEC);
 	}
 
 	if(choix==2){

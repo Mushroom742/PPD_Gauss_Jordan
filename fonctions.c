@@ -144,7 +144,7 @@ void elimin_gauss_jordan_parallel(int taille,double** mat_A,double* vect_b, int 
 	double tmp;
 	omp_set_num_threads(nb_thread);
 
-	#pragma omp parallel for private(i,j)
+	#pragma omp parallel for private(i,j) schedule (static, nb_thread)
 	//SCHEDULE ?
 	for(k=0;k<taille;k++){
 		if(mat_A[k][k]==0){
@@ -183,7 +183,7 @@ void resol_systeme_parallel(int taille,double** mat_A, double* vect_b, int nb_th
 	int i;
 	omp_set_num_threads(nb_thread);
 
-	#pragma omp parallel for
+	#pragma omp parallel for schedule (static, nb_thread)
 	for(i=0;i<taille;i++){
 		vect_b[i] = vect_b[i]/mat_A[i][i];
 	}

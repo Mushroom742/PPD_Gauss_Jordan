@@ -19,11 +19,11 @@ int main(void){
 
 	//mat_A = init_mat_A(taille);
 	mat_A = init_mat_A_alea(taille);
-	//affiche_mat_A(taille,mat_A);
+	affiche_mat_A(taille,mat_A);
 
 	//vect_b = init_vect_b(taille);
 	vect_b = init_vect_b_alea(taille);
-	//affiche_vect_b(taille,vect_b);
+	affiche_vect_b(taille,vect_b);
 
 	do{
 		printf("Sequentiel(1) ou Parallèle(2)\n");
@@ -56,8 +56,8 @@ int main(void){
 
 		resol_systeme_parallel(taille,mat_A,vect_b,nb_thread);
 		t_end=clock();
-		//printf("Solution : \n");
-		//affiche_vect_b(taille,vect_b);
+		printf("Solution : \n");
+		affiche_vect_b(taille,vect_b);
 	}
 
 	t_seq = (float)(t_end-t_start)/CLOCKS_PER_SEC;

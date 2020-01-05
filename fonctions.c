@@ -163,9 +163,10 @@ void elimin_gauss_jordan_parallel(int taille,double** mat_A,double* vect_b, int 
 		}
 
 		//diagonalisation
-		#pragma omp parallel for private(i,j) schedule(static,nb_thread)
+		#pragma omp parallel for private(j) schedule(static,nb_thread)
 		for(i=0;i<taille;i++){
 			if(i!=k){
+				#pragma omp parallel for schedule(static,nb_thread)
 				for(j=k+1;j<taille;j++){
 					mat_A[i][j] = mat_A[i][j]-(mat_A[k][j]/mat_A[k][k])*mat_A[i][k];
 				}

@@ -1,5 +1,8 @@
 #include "fonctions.h"
 
+/*
+ *Initialisation d'une matrice par l'utilisateur
+ */
 double** init_mat_A(int taille){
 	double** mat_A = NULL;
 	int i,j;
@@ -20,6 +23,9 @@ double** init_mat_A(int taille){
 	return mat_A;
 }
 
+/*
+ *Initialisation d'une matrice aléatoire, de la forme de la matrice Atri
+ */
 double** init_mat_A_alea(int taille){
 	double** mat_A = NULL;
 	int i,j;
@@ -42,6 +48,9 @@ double** init_mat_A_alea(int taille){
 
 }
 
+/*
+ *Affiche une matrice dans la console
+ */
 void affiche_mat_A(int taille,double** mat_A){
 	int i,j;
 	printf("Matrice A : \n");
@@ -53,7 +62,9 @@ void affiche_mat_A(int taille,double** mat_A){
 	}
 }
 
-
+/*
+ *Initialisation d'un vecteur par l'utilisateur
+ */
 double* init_vect_b(int taille){
 	double* vect_b = NULL;
 	int i;
@@ -70,6 +81,9 @@ double* init_vect_b(int taille){
 
 }
 
+/*
+ *Initialisation d'un vecteur aléatoire
+ */
 double* init_vect_b_alea(int taille){
 	double* vect_b = NULL;
 	int i;
@@ -83,6 +97,9 @@ double* init_vect_b_alea(int taille){
 	return vect_b;
 }
 
+/*
+ *Affiche un vecteur dans la console
+ */
 void affiche_vect_b(int taille,double* vect_b){
 	int i;
 
@@ -94,7 +111,9 @@ void affiche_vect_b(int taille,double* vect_b){
 
 }
 
-
+/*
+ *Elimination de Gauss-Jordan
+ */
 void elimin_gauss_jordan(int taille,double** mat_A,double* vect_b){
 	int i,j,k,lignePivot;
 	double tmp;
@@ -131,6 +150,9 @@ void elimin_gauss_jordan(int taille,double** mat_A,double* vect_b){
 	}
 }
 
+/*
+ *Résolution du système
+ */
 void resol_systeme(int taille,double** mat_A, double* vect_b){
 	int i;
 
@@ -139,7 +161,10 @@ void resol_systeme(int taille,double** mat_A, double* vect_b){
 	}
 }
 
-void elimin_gauss_jordan_parallel(int taille,double** mat_A,double* vect_b, int nb_thread){
+/*
+ *Elimination de Gauss-Jordan version parallele
+ */
+ void elimin_gauss_jordan_parallel(int taille,double** mat_A,double* vect_b, int nb_thread){
 	int i,j,k,lignePivot;
 	double tmp;
 	omp_set_num_threads(nb_thread);
@@ -166,7 +191,6 @@ void elimin_gauss_jordan_parallel(int taille,double** mat_A,double* vect_b, int 
 		#pragma omp parallel for private(j) schedule(static,nb_thread)
 		for(i=0;i<taille;i++){
 			if(i!=k){
-				#pragma omp parallel for schedule(static,nb_thread)
 				for(j=k+1;j<taille;j++){
 					mat_A[i][j] = mat_A[i][j]-(mat_A[k][j]/mat_A[k][k])*mat_A[i][k];
 				}
@@ -178,6 +202,9 @@ void elimin_gauss_jordan_parallel(int taille,double** mat_A,double* vect_b, int 
 	}
 }
 
+/*
+ *Résolution du système version parallele
+ */
 void resol_systeme_parallel(int taille,double** mat_A, double* vect_b, int nb_thread){
 	int i;
 	omp_set_num_threads(nb_thread);

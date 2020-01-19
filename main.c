@@ -9,8 +9,7 @@ int main(void){
 	int taille,i,choix,nb_thread = 1;
 	double** mat_A = NULL;
 	double* vect_b = NULL;
-	clock_t t_start,t_end;
-	double t_seq;
+	double temps_debut, temps_final;
 	srand(time(NULL));
 
 	//Definition de la taille de la matrice
@@ -34,17 +33,15 @@ int main(void){
 	}while((choix!=1) && (choix!=2));
 
 	if(choix==1){
-		t_start = clock();
+
+		temps_debut = omp_get_wtime();
 
 		elimin_gauss_jordan(taille,mat_A,vect_b);
 		resol_systeme(taille,mat_A,vect_b);
 
-		t_end = clock();
-
 		printf("Solution : \n");
 		affiche_vect_b(taille,vect_b);
 
-		printf("Temps d'exécution : %f secondes \n",(float)(t_end-t_start)/CLOCKS_PER_SEC);
 	}
 
 	if(choix==2){
@@ -55,20 +52,18 @@ int main(void){
 			scanf(" %d",&nb_thread);
 		} while (nb_thread<=0);
 
-		t_start=clock();
+		temps_debut = omp_get_wtime();
 
 		elimin_gauss_jordan_parallel(taille,mat_A,vect_b,nb_thread);
 		resol_systeme_parallel(taille,mat_A,vect_b,nb_thread);
-
-		t_end=clock();
 
 		printf("Solution : \n");
 		affiche_vect_b(taille,vect_b);
 	}
 
 	//Affichage du temps et des charges
-	t_seq = (float)(t_end-t_start)/CLOCKS_PER_SEC;
-	printf("Temps séquentiel: %f \nCharge d'un thread : %f\nCharge d'un processeur : %f\n",t_seq,t_seq/nb_thread,t_seq/omp_get_num_procs());
+	temps_final = omp_get_wtime() -temps_debut;
+	printf("Temps pris: %f\n",temps_final);
 
 	free(vect_b);
 	for(i=0;i<taille;i++){

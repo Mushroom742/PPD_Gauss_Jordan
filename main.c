@@ -38,6 +38,8 @@ int main(void){
 
 		elimin_gauss_jordan(taille,mat_A,vect_b);
 		resol_systeme(taille,mat_A,vect_b);
+		
+		temps_final = omp_get_wtime() -temps_debut;
 
 		printf("Solution : \n");
 		affiche_vect_b(taille,vect_b);
@@ -56,13 +58,14 @@ int main(void){
 
 		elimin_gauss_jordan_parallel(taille,mat_A,vect_b,nb_thread);
 		resol_systeme_parallel(taille,mat_A,vect_b,nb_thread);
+		
+		temps_final = omp_get_wtime() -temps_debut;
 
 		printf("Solution : \n");
 		affiche_vect_b(taille,vect_b);
 	}
 
-	//Affichage du temps et des charges
-	temps_final = omp_get_wtime() -temps_debut;
+	//Affichage du temps
 	printf("Temps pris: %f\n",temps_final);
 
 	free(vect_b);
